@@ -1,6 +1,7 @@
 Vue.component('props-comp', {
     template: `
         <div class="container">
+            <h5>Bienvenido {{ user }}</h5>
             <h1>Peliculas Props</h1>
             <div class="row">
                 <div class="col-12  col-md-6 col-lg-4" v-for="(movie, key) in movies" 
@@ -15,13 +16,22 @@ Vue.component('props-comp', {
                     />
                 </div>
             </div>
-           
+            <label> Cambiar Nombre 
+                <input :value="user.name" @change="setNameUser">
+                <input :value="user.lastName" @change="setLastNameUser">
+            </label>
+            {{ oldUser }}
             
             <MovieFav :show.sync="showFav"/>
         </div>
     `, 
     data () {
         return {
+            user: {
+                name: 'Jesus',
+                lastName: 'Lopez'
+            },
+            oldUser: null,
             movies: [
                 {
                     id: 1,
@@ -48,16 +58,47 @@ Vue.component('props-comp', {
             
         }
     },
+    watch: {
+        // user (newVal, oldVal) {
+            
+        //     console.log(newVal, oldVal)
+        //     this.oldUser = oldVal
+        // }
+        user: {
+            handler: function (newVal, oldVal) {
+                console.log('new:', newVal, 'old:', oldVal)
+            },
+            deep: true
+        },
+        'user.name': {
+            handler: function (newVal, oldVal) {
+                console.log('new:', newVal, 'old:', oldVal)
+            },
+            deep: true
+        },
+        'user.lastName': {
+            handler: function (newVal, oldVal) {
+                console.log('new:', newVal, 'old:', oldVal)
+            },
+            deep: true
+        },
+
+    },
     components: {
         MovieComp,
         MovieFav
     },
     methods: {
+        setNameUser (event) {
+            this.user.name = event.target.value
+        },
+        setLastNameUser (event) {
+            this.user.lastName = event.target.value
+        },
         onToggleLike (data) {
             let movieLike = this.movies.find(movie => movie.id == data.id)
             movieLike.like = data.like
             this.showFav = data.like
-           
         },
         // onHideFav (show) {
         //     this.showFav = show
