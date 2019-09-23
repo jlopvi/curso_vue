@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Curso de Vue.js</title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <p v-cloak>{{ title }}</p>
+        <hello-world></hello-world>
+        <vue-directives></vue-directives>
+    </div>
+ 
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+    <script src="./components/HelloWorld.js"></script>
+    <script src="./components/DirectiveHtml.js"></script>
+    <script src="./components/DirectiveShow.js"></script>
+    <script src="./components/DirectiveIf.js"></script>
+    <script src="./components/DirectiveFor.js"></script>
+    <script src="./components/DirectiveOn.js"></script>
+    <script src="./components/DirectiveModel.js"></script>
+    <script src="./components/SlotComponents/buttonComp.js"></script>
+    <script src="./components/DirectiveSlot.js"></script>
+    <script src="./components/DirectivePre.js"></script>
+    <script src="./components/DirectiveOnce.js"></script>
+    <script src="./components/SaludarComp.js"></script>
+    <script  src="./components/VueDirectives.js"></script>
+    <script>
+        let vm = new Vue({
+            el: '#app',
+            data () {
+                return {
+                    title: 'Directivas Vue JS v-cloak'
+                }
+            }
+        })
+    </script>
+</body>
+</html>

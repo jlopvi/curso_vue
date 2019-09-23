@@ -1,7 +1,7 @@
 let MovieComp = {
     template: `
         <div :id="id | formatId" class="card" :class="{'movie-like': like }">
-            <img :src="cover" class="card-img-top">
+            <img :src="cover | coverURL" class="card-img-top">
             <div class="card-body">
                 <h2 class="card-title">{{ title | uppercase }}</h2>
                 <p class="card-text">{{ synopsis | excertp }}</p>
@@ -12,6 +12,7 @@ let MovieComp = {
                         'fas': like
                     }"></i>
                 </button>
+                <router-link :to="{ name: 'pelicula', params: { id }}" class="btn btn-primary">Detalle</router-link>
             </div>
         </div>
     `,
