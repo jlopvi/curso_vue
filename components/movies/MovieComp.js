@@ -3,7 +3,7 @@ let MovieComp = {
         <div :id="id | formatId" class="card" :class="{'movie-like': like }">
             <img :src="cover | coverURL" class="card-img-top">
             <div class="card-body">
-                <h2 class="card-title">{{ title | uppercase }}</h2>
+                <h2 class="card-title">{{ title | uppercase }}  {{  $store.state.counter }}</h2>
                 <p class="card-text">{{ synopsis | excertp }}</p>
                 <button class="btn" :class="btnStatus" @click="toggleLike">
                     <span v-text="like ? 'Favorita' : 'Agregar a Favoritas'"></span>

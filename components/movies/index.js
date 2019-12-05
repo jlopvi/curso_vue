@@ -5,7 +5,9 @@ const MovieApp= Vue.component('movie-app', {
             <h5>Bienvenido {{ user.name }} {{ user.lastName }}</h5>
             <SearchComp ref="searchComp" v-model="searchMovies"/>
             <div v-show="! Object.keys(searchMovies).length">
-                <h1>Peliculas App</h1>
+                <h1>Peliculas App {{  $store.state.counter }}</h1>
+                <input type="number" v-model="add">
+                <button @click="$store.commit('add', add)">+</button>
                 <div class="row">
                     <div class="col-12  col-md-6 col-lg-4 py-3" v-for="(movie, key) in movies" 
                     :key="key">
@@ -62,6 +64,7 @@ const MovieApp= Vue.component('movie-app', {
     `, 
     data () {
         return {
+            add: 0,
             user: {
                 name: 'Jesus',
                 lastName: 'Lopez'
