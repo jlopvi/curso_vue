@@ -97,6 +97,8 @@
 <body>
     <div id="app">
         <router-view></router-view>
+       
+            
     </div>
     <script src="https://kit.fontawesome.com/2190f1930b.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
@@ -155,16 +157,19 @@
 
         let store = new Vuex.Store({
             state: {
-                counter: 0
+                favMovies: []
             },
             
             mutations: {
-                add (state, payload) {
-                    if(payload > 0) {
-                        state.counter += parseInt(payload)
+                toggleFavMovie (state, movie) {
+                    let index = state.favMovies.findIndex(favMovie => favMovie.id == movie.id)
+                    
+                    if(index >= 0) {
+                        state.favMovies.splice(index, 1)
                         return
                     }
-                    state.counter++
+
+                    state.favMovies.push(movie)
                 }
             }
         })
@@ -177,7 +182,7 @@
                     title: 'Compartiendo data a componentes Hijos [props]'
                 }
             },
-            store: store
+            store
         })
     </script>
 </body>

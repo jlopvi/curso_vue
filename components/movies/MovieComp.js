@@ -1,15 +1,15 @@
 let MovieComp = {
     template: `
-        <div :id="id | formatId" class="card" :class="{'movie-like': like }">
+        <div :id="id | formatId" class="card" :class="{'movie-like': isFav }">
             <img :src="cover | coverURL" class="card-img-top">
             <div class="card-body">
-                <h2 class="card-title">{{ title | uppercase }}  {{  $store.state.counter }}</h2>
+                <h2 class="card-title">{{ title | uppercase }}</h2>
                 <p class="card-text">{{ synopsis | excertp }}</p>
                 <button class="btn" :class="btnStatus" @click="toggleLike">
-                    <span v-text="like ? 'Favorita' : 'Agregar a Favoritas'"></span>
+                    <span v-text="isFav ? 'Favorita' : 'Agregar a Favoritas'"></span>
                     <i class="far fa-heart " :class="{
-                        'far': !like,
-                        'fas': like
+                        'far': !isFav,
+                        'fas': isFav
                     }"></i>
                 </button>
                 <router-link :to="{ name: 'pelicula', params: { id }}" class="btn btn-primary">Detalle</router-link>
@@ -74,7 +74,15 @@ let MovieComp = {
     },
     computed: {
         btnStatus () {
-            return this.like ? 'btn-like' : 'btn-ligth'
+            return this.isFav ? 'btn-like' : 'btn-ligth'
+        },
+
+        isFav () {
+            let favMovies = this.$store.state.favMovies
+
+            let index = favMovies.findIndex(movie => movie.id === this.id)
+
+            return index >= 0
         }
     },
     methods: {

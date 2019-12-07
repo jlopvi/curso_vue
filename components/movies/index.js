@@ -5,9 +5,8 @@ const MovieApp= Vue.component('movie-app', {
             <h5>Bienvenido {{ user.name }} {{ user.lastName }}</h5>
             <SearchComp ref="searchComp" v-model="searchMovies"/>
             <div v-show="! Object.keys(searchMovies).length">
-                <h1>Peliculas App {{  $store.state.counter }}</h1>
-                <input type="number" v-model="add">
-                <button @click="$store.commit('add', add)">+</button>
+                <h1>Peliculas App </h1>
+               
                 <div class="row">
                     <div class="col-12  col-md-6 col-lg-4 py-3" v-for="(movie, key) in movies" 
                     :key="key">
@@ -96,6 +95,7 @@ const MovieApp= Vue.component('movie-app', {
         onToggleLike (data) {
             let movieLike = this.movies.find(movie => movie.id == data.id)
             movieLike.like = data.like
+            this.$store.commit('toggleFavMovie', movieLike)
             this.showFav = data.like
         },
         getPopularMovies () {
