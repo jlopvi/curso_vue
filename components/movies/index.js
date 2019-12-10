@@ -6,7 +6,7 @@ const MovieApp= Vue.component('movie-app', {
             <SearchComp ref="searchComp" v-model="searchMovies"/>
             <div v-show="! Object.keys(searchMovies).length">
                 <h1>Peliculas App </h1>
-               
+               <pre>{{ favMovies }}</pre>
                 <div class="row">
                     <div class="col-12  col-md-6 col-lg-4 py-3" v-for="(movie, key) in movies" 
                     :key="key">
@@ -63,6 +63,7 @@ const MovieApp= Vue.component('movie-app', {
     `, 
     data () {
         return {
+           
             add: 0,
             user: {
                 name: 'Jesus',
@@ -80,6 +81,9 @@ const MovieApp= Vue.component('movie-app', {
             total_pages: null
         }
     },
+    computed:{
+        ...Vuex.mapState(['favMovies','counter'])
+    },
     watch: {
         page () {
             this.getPopularMovies()
@@ -95,7 +99,8 @@ const MovieApp= Vue.component('movie-app', {
         onToggleLike (data) {
             let movieLike = this.movies.find(movie => movie.id == data.id)
             movieLike.like = data.like
-            this.$store.commit('toggleFavMovie', movieLike)
+            // this.$store.commit('toggleFavMovie', movieLike)
+            this.storeFavorita(movieLike)
             this.showFav = data.like
         },
         getPopularMovies () {
@@ -114,7 +119,10 @@ const MovieApp= Vue.component('movie-app', {
         setPage (page) {
             this.page = page
             this.getPopularMovies() 
-        }
+        },
+        ...Vuex.mapMutations({
+            storeFavorita: 'toggleFavMovie'
+        })
         // onHideFav (show) {
         //     this.showFav = show
         // }
